@@ -1,4 +1,6 @@
 import 'package:daraj/components/items.dart';
+import 'package:daraj/screens/marketplace.dart';
+import 'package:daraj/screens/profile.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -14,6 +16,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Widget> pages = [
+    MarketPlace(
+      title: '',
+    ),
+    MarketPlace(
+      title: '',
+    ),
+    ProfilePage(),
+  ];
+
   final List<Items> item = [
     const Items(
       title: "Daddys's Kitchen Butwal",
@@ -48,26 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
               fontWeight: FontWeight.bold),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 12,
-          right: 12,
-          left: 12,
-        ),
-        child: GridView.builder(
-          shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-          ),
-          itemCount: item.length,
-          itemBuilder: (BuildContext context, int index) {
-            var items = item[index];
-            return Items(title: items.title, branch: items.branch);
-          },
-        ),
-      ),
+      body: pages.elementAt(currentPageIndex),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
